@@ -2,20 +2,20 @@ version: '3.4'
 
 services:
 
-  sqldata:
-    image: mcr.microsoft.com/mssql/server:2017-latest 
-    environment:
-            SA_PASSWORD: "Passw0rd"
-            ACCEPT_EULA: "Y"
-    ports: 
-        - "1433:1433" 
-    volumes:
-        - sqldata:/var/opt/mssql
+  #sqldata:
+   # image: mcr.microsoft.com/mssql/server:2017-latest 
+   # environment:
+   #         SA_PASSWORD: "Passw0rd"
+   #         ACCEPT_EULA: "Y"
+   # ports: 
+   #     - "1433:1433" 
+   # volumes:
+  #      - sqldata:/var/opt/mssql
 
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi
     build:
       context: .
       dockerfile: Catalog.API/Dockerfile
-    depends_on:
-      - sqldata
+   # depends_on:
+   #   - sqldata
