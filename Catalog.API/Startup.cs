@@ -63,6 +63,8 @@ namespace Catalog.API
             });
 
             services.AddIntegrationServices(Configuration);
+
+            services.AddEventBus(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
