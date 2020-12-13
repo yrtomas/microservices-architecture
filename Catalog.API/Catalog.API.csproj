@@ -25,4 +25,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EventBusRabbitMQ\EventBusRabbitMQ.csproj" />
+    <ProjectReference Include="..\IntegrationEventLogEF\IntegrationEventLogEF.csproj" />
+  </ItemGroup>
+
 </Project>
