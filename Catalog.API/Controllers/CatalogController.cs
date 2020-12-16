@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace Catalog.API.Controllers
 {
     [ApiController]
-    [Route("api/v1/Catalog")]
+    [Route("api/v1/catalog")]
     public class CatalogController : ControllerBase
     {
         private readonly CatalogContext _catalogContext;

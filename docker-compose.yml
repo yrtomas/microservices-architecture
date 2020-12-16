@@ -12,6 +12,12 @@ services:
     volumes:
         - sqldata1:/var/opt/mssql
 
+  basketdata:
+     image: redis:alpine
+
+  rabbitmq:
+     image: rabbitmq:3-management-alpine
+
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi
     build:
@@ -19,6 +25,16 @@ services:
       dockerfile: Catalog.API/Dockerfile
     depends_on:
       - sqldata
+
+  basket-api:
+    image: ${DOCKER_REGISTRY-}basketapi
+    build:
+      context: .
+      dockerfile: /Basket.API/Dockerfile
+    depends_on:
+      - basketdata
+      - rabbitmq
+
 
 volumes:
      sqldata1:

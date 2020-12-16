@@ -1,6 +1,18 @@
 version: '3.4'
 
 services:
+
+  basketdata:
+    ports:
+      - "6379:6379"
+    volumes:
+      - eshop-basketdata:/data
+
+  rabbitmq:
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+
   catalog.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -15,3 +27,18 @@ services:
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  basket-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - ConnectionString=${ESHOP_AZURE_REDIS_BASKET_DB:-basketdata}
+      - EventBusConnection=${ESHOP_AZURE_SERVICE_BUS:-rabbitmq}
+      - EventBusUserName=${ESHOP_SERVICE_BUS_USERNAME}
+      - EventBusPassword=${ESHOP_SERVICE_BUS_PASSWORD}
+      - PATH_BASE=/basket-api
+      - GRPC_PORT=81
+      - PORT=80
+    ports:
+      - "5103:80"
+      - "9103:81"
